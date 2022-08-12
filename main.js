@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 
-
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -37,9 +36,13 @@ app.set('view engine', 'ejs');
 
 
 //endpoints
-app.get("/", (req, res) => {
-  res.send("hi");
-});
+// app.get("/", (req, res) => {
+//   res.send("hi");
+// });
+
+//route prefix 
+app.use("", require('./routes/routes'))
+
 
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
