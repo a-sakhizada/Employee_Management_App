@@ -3,6 +3,8 @@ const router = express.Router();
 const Employee = require("../models/employees"); //require the employee schema
 const multer = require("multer"); //processes files that are uploaded
 const fs = require("fs");
+const path = require('path');
+
 
 //file upload
 let storage = multer.diskStorage({
@@ -24,11 +26,8 @@ let upload = multer({
 //const upload = multer({dest: "./uploads"}).single("file");
 
 //handling all routes manipulating employees
-// router.get("/", (req, res) => {
-//     const templateVars = {title: 'Home Page'};
-//   res.render('index', templateVars);
-// });
 
+//get the add employee modal
 router.get("/add", (req, res) => {
   const templateVars = { title: "Add Employees" };
   res.render("add_employees", templateVars);
@@ -62,7 +61,7 @@ router.get("/", (req, res) => {
     if (err) {
       res.json({ message: err.message });
     } else {
-      console.log("employees obj:", employees);
+      //console.log("employees obj:", employees);
       res.render("index", {
         title: "Home Page",
         employees: employees,
@@ -133,7 +132,7 @@ router.post("/update/:id", upload, (req, res) => {
 //delete user
 router.get("/delete/:id", (req, res) => {
   let id = req.params.id;
-  Employee.findByIdAndRemove(id, (err, result) => {
+  Employee.findByIdAndDelete(id, (err, result) => {
     if (result.file != "") {
       try {
         fs.unlinkSync("./uploads/" + result.file);
