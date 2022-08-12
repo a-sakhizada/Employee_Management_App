@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const bodyParser = require("body-parser");
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -14,7 +16,7 @@ db.on("error", (error) => console.log(error));
 db.once("open", () => console.log("Connected to the database"));
 
 //middleware
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true })); //translates/parses incoming req body 
 app.use(express.json());
 app.use(
   session({
