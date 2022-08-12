@@ -7,7 +7,10 @@ router.get("/", (req, res) => {
   res.render('index', templateVars);
 });
 
-
+router.get("/add", (req, res) => {
+    const templateVars = {title: 'Add Employees'};
+  res.render('add_employees', templateVars);
+});
 
 
 module.exports = router;
