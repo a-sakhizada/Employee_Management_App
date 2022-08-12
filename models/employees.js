@@ -16,5 +16,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  file: {
+    type: String,
+    required: true,
+  },
+  created: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  }
 });
 module.exports = mongoose.model("Employees", userSchema);

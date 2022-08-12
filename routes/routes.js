@@ -107,21 +107,49 @@ router.post("/update/:id", upload, (req, res) => {
   }
 
   //get all other employee details
-  Employee.findByIdAndUpdate(id, {
-    name: req.body.name,
-    email: req.body.email,
-    department: req.body.department,
-    employeeStatus: req.body.employeeStatus,
-    file: new_file,
-  }, (err) => {
-    if(err){
-      res.json({message: err.message, type: 'danger'});
-    }else{
+  Employee.findByIdAndUpdate(
+    id,
+    {
+      name: req.body.name,
+      email: req.body.email,
+      department: req.body.department,
+      employeeStatus: req.body.employeeStatus,
+      file: new_file,
+    },
+    (err) => {
+      if (err) {
+        res.json({ message: err.message, type: "danger" });
+      } else {
+        req.session.message = {
+          type: "success",
+          message: "Employee updated successfully!",
+        };
+        res.redirect("/");
+      }
+    }
+  );
+});
+
+//delete user
+router.get("/delete/:id", (req, res) => {
+  let id = req.params.id;
+  Employee.findByIdAndRemove(id, (err, result) => {
+    if (result.file != "") {
+      try {
+        fs.unlinkSync("./uploads/" + result.file);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    if (err) {
+      res.json({ message: err.message });
+    } else {
       req.session.message = {
-        type: 'success',
-        message: 'Employee updated successfully!',
+        type: "info",
+        message: "Employee deleted successfully!",
       };
-      res.redirect('/');
+      res.redirect("/");
     }
   });
 });

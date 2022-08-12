@@ -34,9 +34,9 @@
                     <div class="mb-3">
                         <label for="file" class="form-label">Attach a File</label>
                         <input class="form-control form-control-lg" type="file" name="file" >
-                        <img src="/<%= employee.__v %>" width="100" class="img-thumbnail mt-1">
+                        <img src="/<%= employee.file %>" width="100" class="img-thumbnail mt-1">
                     </div>
-                    <input type="hidden" name="old_file" value="<%= employee.__v %>">
+                    <input type="hidden" name="old_file" value="<%= employee.file %>">
                     <div class="mb-3 d-grid">
                         <input type="submit" name="submit" value="Update Employee" class="btn btn-success btn-lg" />
                     </div>

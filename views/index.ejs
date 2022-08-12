@@ -13,9 +13,9 @@
                 <% } %>
             <div class="table-responsive">
                 <% if (employees != "") { %>
-                    <table class="table table-bordered table-striped table-hover text-center">
-                        <thead>
-                            <tr class="table-dark">
+                    <table class="table table-success table-bordered table-striped table-hover text-center">
+                        <thead class="table-secondary">
+                            <tr class="table-active">
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -33,7 +33,7 @@
                                     <td><%= row.email %></td>
                                     <td><%= row.department %></td>
                                     <td><%= row.employeeStatus %></td>
-                                    <td><img src="<%= row.__v %>" width="50" class="img-thumbnail"/></td>
+                                    <td><img src="<%= row.file %>" width="50" class="img-thumbnail"/></td>
                                     <td>
                                         <a href="/edit/<%= row._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
                                         <a href="/delete/<%= row._id %>" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
