@@ -1,0 +1,49 @@
+<%- include('layout/header') %>
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-lg-6 mx-100 mx-auto shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card shadow">
+                <div class="card-header bg-success">
+                    <h4 class="text-light">Edit Employee (<%= employee.name %>)</h4>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <form action="/update/<%= employee._id %>" method="post" id="add-form" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control form-control-lg" 
+                        placeholder="Enter Name" value="<%= employee.name %>" required />
+                    </div>
+                    <div class="mb-2">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control form-control-lg" 
+                        placeholder="Enter Email" value="<%= employee.email %>" required />
+                    </div>
+                    <div class="mb-2">
+                        <label for="department">Department</label>
+                        <input type="text" name="department" class="form-control form-control-lg" 
+                        placeholder="Enter Department" value="<%= employee.department %>" required />
+                    </div>
+                    <div class="mb-2">
+                        <label for="employeeStatus">Status</label>
+                        <input type="text" name="employeeStatus" class="form-control form-control-lg" 
+                        placeholder="Enter Status" value="<%= employee.employeeStatus %>" required />
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Attach a File</label>
+                        <input class="form-control form-control-lg" type="file" name="file" >
+                        <img src="/<%= employee.__v %>" width="100" class="img-thumbnail mt-1">
+                    </div>
+                    <input type="hidden" name="old_file" value="<%= employee.__v %>">
+                    <div class="mb-3 d-grid">
+                        <input type="submit" name="submit" value="Update Employee" class="btn btn-success btn-lg" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>
