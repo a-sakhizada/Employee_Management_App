@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-
 //handling all routes manipulating employees
-router.get('/employees', (req, res) => {
-    res.send("All Employees");
+router.get("/", (req, res) => {
+    const templateVars = {title: 'Home Page'};
+  res.render('index', templateVars);
 });
 
 module.exports = router;
