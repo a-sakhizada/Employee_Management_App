@@ -31,6 +31,9 @@ app.use((req, res, next) => {
   next();
 }); //storing session msg
 
+//make the uploads folder static
+app.use(express.static("uploads"));
+
 //set the template engine
 app.set("view engine", "ejs");
 

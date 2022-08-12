@@ -12,32 +12,39 @@
                 </div>
                 <% } %>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover text-center">
-                    <thead>
-                        <tr class="table-dark">
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Department</th>
-                            <th>Employee Status</th>
-                            <th>Files</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Justin Beiber</td>
-                            <td>jb@hotmail.com</td>
-                            <td>IT</td>
-                            <td>Employeed</td>
-                            <td><img src="" alt="" /></td>
-                            <td><a href="" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
-                                <a href="" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <% if (employees != "") { %>
+                    <table class="table table-bordered table-striped table-hover text-center">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Employee Status</th>
+                                <th>Files</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% employees.forEach((row, index) => { %>
+                                <tr class="align-middle">
+                                    <td><%= index %></td>
+                                    <td><%= row.name %></td>
+                                    <td><%= row.email %></td>
+                                    <td><%= row.department %></td>
+                                    <td><%= row.employeeStatus %></td>
+                                    <td><img src="<%= row.__v %>" width="50" class="img-thumbnail"/></td>
+                                    <td>
+                                        <a href="/edit/<%= row._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                        <a href="/delete/<%= row._id %>" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <h1 class="text-center text-secondary mt-5">No Employees found in the database!</h1>
+                <% } %>
             </div>
         </div>
     </div>

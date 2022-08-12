@@ -1,27 +1,32 @@
 const express = require("express");
 const router = express.Router();
 const Employee = require('../models/employees'); //require the employee schema
-const multer = require('multer');  //processes files that are uploaded
+const multer = require("multer");  //processes files that are uploaded
 
 //file upload
 let storage = multer.diskStorage({
   destination: function(req, file, cb){
-    cb(null, './uploads');
+    cb(null, "./uploads");
   },
   filename: function(req, file, cb) {
     cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
   },
+//   filename:  function (req, file, cb) { 
+//     cb(null , file.originalname);   
+//  },
 });
 
 let upload = multer({
   storage: storage,
-}).single('file');
+}).single("file");
+
+//const upload = multer({dest: "./uploads"}).single("file");
 
 //handling all routes manipulating employees
-router.get("/", (req, res) => {
-    const templateVars = {title: 'Home Page'};
-  res.render('index', templateVars);
-});
+// router.get("/", (req, res) => {
+//     const templateVars = {title: 'Home Page'};
+//   res.render('index', templateVars);
+// });
 
 router.get("/add", (req, res) => {
     const templateVars = {title: 'Add Employees'};
@@ -35,7 +40,7 @@ router.post("/add", upload, (req, res) => {
     email: req.body.email,
     department: req.body.department,
     employeeStatus: req.body.employeeStatus,
-    Files: req.file.filename,
+    file: req.file.filename,
   });
   employee.save((err) => {
     if(err){
@@ -49,6 +54,21 @@ router.post("/add", upload, (req, res) => {
     }
   });
 
+});
+
+// get all employees
+router.get('/', (req, res) => {
+  Employee.find().exec((err, employees) => {
+    if(err){
+      res.json({ message: err.message });
+    }else {
+      console.log("employees obj:", employees);
+      res.render('index', {
+        title: "Home Page",
+        employees: employees,
+      })
+    }
+  });
 });
 
 
