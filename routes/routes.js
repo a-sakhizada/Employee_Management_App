@@ -3,8 +3,6 @@ const router = express.Router();
 const Employee = require("../models/employees"); //require the employee schema
 const multer = require("multer"); //processes files that are uploaded
 const fs = require("fs");
-const path = require('path');
-
 
 //file upload
 let storage = multer.diskStorage({
@@ -12,11 +10,8 @@ let storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    cb(null, file.originalname);
   },
-  //   filename:  function (req, file, cb) {
-  //     cb(null , file.originalname);
-  //  },
 });
 
 let upload = multer({
@@ -26,7 +21,6 @@ let upload = multer({
 //const upload = multer({dest: "./uploads"}).single("file");
 
 //handling all routes manipulating employees
-
 //get the add employee modal
 router.get("/add", (req, res) => {
   const templateVars = { title: "Add Employees" };
